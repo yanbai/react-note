@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "transform-runtime",
+    "transform-vue-jsx",
+    "syntax-dynamic-import"
+  ]
+}

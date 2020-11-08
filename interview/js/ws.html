@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+const ws = new WebSocket('wss://echo.websocket.org')
+
+ws.onopen = function(e) {
+  console.log('on open')
+  ws.send('hello')
+}
+
+ws.onmessage = function(e) {
+  console.log('received message', e.data)
+  ws.close()
+}
+
+ws.onclose = function(e) {
+  console.log('connection closed')
+}
+</script>
+</html>

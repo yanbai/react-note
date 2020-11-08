@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" onchange="previewFile()" id="file"><br>
+<script>
+  function previewFile() {
+
+    let file = document.getElementById('file').files[0]
+
+    // BLOB example - extracting data from blob
+    const reader = new FileReader()
+    reader.addEventListener('loadend', () => {
+      // reader.result contain blob as a typed array
+      console.log('buffer: ', reader.result)
+    })
+    reader.readAsArrayBuffer(file)
+
+  }
+</script>
+</body>
+</html>

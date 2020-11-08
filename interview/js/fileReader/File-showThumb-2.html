@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" onchange="uploadFile()" />
+  <div id="preview"></div>
+<script>
+  function handleFiles(files) {
+    for (let i=0; i<files.length;i++) {
+      const file = files[i]
+      if(!file.type.startWith('image/'))
+        continue
+
+      const img = document.createElement('img')
+      img.classList.add('obj')
+      img.file = file
+      let preview = document.getElementById('preview')
+      preview.appendChild(img)
+
+      const reader = new FileReader()
+      reader.onload = function(e) {
+        img.src = e.target.result
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+  function uploadFile() {
+    var files = document.querySelector('input[type=file]').files;
+    handleFiles(files)
+  }
+</script>
+</body>
+</html>
+
+
+
+

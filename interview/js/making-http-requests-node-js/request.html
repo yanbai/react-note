@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+// function request(urls, maxNumber, callback) {
+//   let xhr = new XMLHttpRequest
+//   for(let i=0, l=urls.length; i<l; i++) {
+//     xhr.open('GET', urls[i])
+//     // xhr.setRequestHeader('Origin', '127.0.0.1')
+//     // xhr.setRequestHeader('Content-Type', 'text/plain')
+//     // xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+//     // xhr.on('error', error => console.log(error))
+//     // xhr.onerror = err => console.log(err)
+//     xhr.send()
+//   }
+// }
+// let urls = [
+//   // 'http://api.alice.com/cors',
+//   // 'http://www.example.com/',
+//   // 'http://www.example.com/',
+//   // 'http://www.example.com/',
+//   // 'http://www.example.com/'
+//   // 'http://www.baidu.com/'
+//   'http://junyi.me/blog/s17.html'
+// ]
+// const MAX = 3
+// // request(urls, 3)
+// fetch('http://example.com/movies.json')
+//   .then(response => response.json())
+//   .then(data => console.log(data));
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://www.example.com/', true);
+xhr.responseType = 'arraybuffer';
+xhr.onload = function(e) {
+    buffer = xhr.response;
+    console.log(buffer)
+};
+xhr.send();
+</script>
+</html>
+
