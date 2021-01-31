@@ -207,7 +207,7 @@ also I learn react and react native by my-self
 
 ## uni-app
 two kind of render engin: webview(web) and weex(native)
-webview(in Andoid SDK): It uses the WebKit rendering engine to display web pages embed in app
+webview(in Andoid SDK): It uses the WebKit rendering engine to display web pages embeded in app
 在Android手机中内置了一款高性能webkit内核浏览器，在SDK中封装为一个叫做WebView组件
 
 nvue use weex
@@ -255,7 +255,7 @@ working history
 make your mini-stories achievement-oriented
 tell the employer what you know about this role
   I understand that for this position you are hiring for, you are lookign for someone with...
-tell teh employer why you are the right fit for what they need
+tell the employer why you are the right fit for what they need
   ... overall due to my strong background and achievements in
   successfully identifying gaps and creating efficiencies, I am
   confident I will be able to succeed in this role you are hiring for
@@ -296,6 +296,7 @@ Ninja van grows fast and very young, the tech stack is suitable, can provide the
 
 And according to my last two years working experience in Gobear, I am confident to work in SG
 
+
 我知道 Ninja是一个express delivery company， providing service across southeast asia
 Ninja Van 建立于2014年，发展的很快。
 
@@ -308,6 +309,10 @@ Ninja Van 建立于2014年，发展的很快。
 NV很多人使用 我可以在RN实现自己下一阶段的职业目标，RN 比较新，技术栈也会比较新
 
 根据我前两年和gobear合作经验 我也对自己在新加坡工作有信心
+
+
+6. why want to join klook
+I know that klook is a travel e-commerce platform, even although the corona virus impact travel business a lot, but still believe travel has a bright future, because this business is very healthy, every covernment, every place would like to develop travel business. And I am confident with it because I have been working for a big chinese travel platform before. And according to the experience in working with gobear, I have confident to work in klook
 
 7. have any questions about ninja?
 4.1 how many people are there in Ninja Van technic department now?

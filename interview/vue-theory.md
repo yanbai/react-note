@@ -6,9 +6,31 @@ vue
 vue有点像dom 操作，dom api,有属性相关 有联动
 react 有点像innerHTML
 
+# 总体梳理，何时getter，何时setter, getter是执行dep.depend, setter是执行dep.notify
 
-# dependcy collect
-## will collect dependency in get
+# 当状态改变时, 比如first name(dependency property)改变，影响 1. full name(computed property)， 2. full name的界面和 3. first name自己的界面，发生了什么
+
+first name有一个dep list，dep list里面有两个watcher，
+1. 一个是组件watcher负责更新first name自己的界面
+## 一般watcher
+queueWatcher或者叫做 组件watcher
+
+2. 一个是computed watcher，可以理解为full name，computed watcher有自己的dep list，里面有full name的组件watcher
+## 如果是computed watcher的话，computed watcher就是computed property
+this.dep.notify()
+computedWatcher 也有dep
+
+3. 总结计算属性 原理
+新：
+computed property 的 dep 里面有 组件watcher，computed改变 通知 组件 render（createElement）
+computed property 本身有 dirty， 执行 createElemnt 时候，如果dirty为 false，不用重新求值
+
+4. computed property 惰性求值, 如果computed property 的dep里面没有component render function or computed watcher，代表没有人订阅他， 不会触发getAndInvoke，也不会去更新dom
+
+
+# 比较简答的一般property getter, dep.depend
+
+## status getter
 ```js
 const dep = new Dep()
 ...
@@ -24,6 +46,7 @@ class Dep{
 ```
 Dep.target is the current watcher need to be collected
 
+## dep.depend
 ```js
 dep.depend
 depend () {
@@ -35,52 +58,18 @@ depend () {
 collect current global watcher into this dep list
 every state getter method has a dep, when this state getter is emit, it will fire dep.depend()
 
-### wathcher.addDep(dep)
+收集当前全局watcher到dep list，每个状态都有一个dep，当状态getter触发，会触发dep.depend
+dep.depend实际上是把当前全局watcher添加到dep list
+
+## wathcher.addDep(dep)
 will add watcher into argument dep list
 arugument dep will subscribe to this watcher
 
-### watcher.deps watcher.depIds watcher.newDeps watcher.newDepIds
-used in cleanupDeps
-
-### computedWatcher.dep
+把watcher加入到参数的dep list里面，参数的dep会订阅这个watcher
 
 
-# when to do dependency collection
-存疑?
-当render函数(createElement) 读取状态的时候 触发state的get
-在beforeMount和mounted之间?
 
-# distrubute update in setter
-dep.notify
-in src/core/observer/dep.js
-```js
-class Dep {
-  // ...
-  notify () {
-  // stabilize the subscriber list first
-    const subs = this.subs.slice()
-    for (let i = 0, l = subs.length; i < l; i++) {
-      subs[i].update()
-    }
-  }
-}
-```
-
-## 如果是computed watcher的话
-this.dep.notify()
-computedWatcher 也有dep
-
-## 一般watcher
-queueWatcher
-
-
-# 计算属性
-computed 原理
-新：
-computed的 dep 里面有 组件watcher，computed改变 通知 组件 render（createElement）
-computed 本身有 dirty， 执行 createElemnt 时候，如果dirty为 false，不用重新求值
-
-## computed property getter
+# 比较复杂的computed property getter， 这里有比较绕 可以先忽略
 ```js
 function createComputedGetter (key) {
   return function computedGetter () {
@@ -102,13 +91,13 @@ in watcher.evaluate: if dirty is true, then calculate (exec computed property ge
 
 
 这里有一段不是很懂 可以先忽略
-这里需要特别注意的是，由于 this.firstName 和 this.lastName 都是响应式对象，这里会触发它们的 getter，根据我们之前的分析，它们会把自身持有的 dep 添加到当前正在计算的 watcher 中，这个时候 Dep.target 就是这个 computed watcher
+这里需要特别注意的是，由于 this.firstName 和 this.lastName 都是响应式对象，这里会触发它们的 getter，根据我们之前的分析，它们会把自身持有的 dep 订阅当前正在计算的 watcher 中，这个时候 Dep.target 就是这个 computed watcher(wathcher.addDep(dep)/Dep.target.addDep(this))
+
 get
 for example
 return this.firstName + this.lastName
 
-at this time, it will trigger these state getter, 会把自身持有的dep添加到
-当前watcher中，这时Dep.target就是computed watcher
+at this time, it will trigger these state getter, 会把自身持有的dep订阅当前watcher中，这时Dep.target就是computed watcher(wathcher.addDep(dep)/Dep.target.addDep(this))
 
 
 ## when computed property dependency change
@@ -147,40 +136,7 @@ if (this.dep.subs.length === 0) {
 ```
 如果 this.dep.subs.length === 0 成立，则说明没有人去订阅这个 computed watcher 的变化，仅仅把 this.dirty = true，只有当下次再访问这个计算属性的时候才会重新求值。
 另一种情况，渲染 watcher 订阅了这个 computed watcher 的变化，那么它会执行getAndInvoke
-# watcher
 
-# life cycle
-src/core/instance/init.js:
-
-new vue
-
-init event, life cycle
-
-beforecreated
-
-init state
-
-create
-
-compile template -> createElement
-
-beforemounted
-
-patch + render vdom
-https://github.com/snabbdom/snabbdom
-mounted
-
-## init state flow
-init props
-init methods
-init data
-init computed
-init watch
-
-# template 解析
-这块需要compiler
-template -> AST -> createElement(渲染函数)
-how?
 
 
 # vue如何监听一个不会触发render的数据
@@ -188,18 +144,29 @@ watch?
 forceupdate?
 __ob__.dep.notify() ?
 
-
-# vue diff
-will use diff to improve the compare performance, reduce dom change
-will have some principles:
-1. compare in same hiracky
-2. compare same key
-3. compare same type same tag or same component
-
-
 # vs v3
 
-# vue bug
-1. runtime beforemount 已经有el了
+# when to do dependency collection
+存疑?
+猜想一：当render函数(createElement) 读取状态的时候 触发state的get
+在beforeMount和mounted之间?
+有证据显示，在执行渲染函数的时候，会触发getter
 
-2. 响应式在mounted之前到底有没有用？
+猜想二：感觉答案是在init的时候收集（执行状态的getter）
+在挂载，状态改变的时候触发状态的setter
+
+# distrubute update in setter
+dep.notify
+in src/core/observer/dep.js
+```js
+class Dep {
+  // ...
+  notify () {
+  // stabilize the subscriber list first
+    const subs = this.subs.slice()
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update()
+    }
+  }
+}
+```

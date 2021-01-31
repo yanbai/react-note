@@ -33,31 +33,33 @@ getUserMedia to call the device camera, ssr Service(ssr 原理)
 
 2. basic knowledge
 # use html css, div vertically align center, text inside div vertically center, div height is equal to half of body width
-
 horizontal center approaches:
 justify-content
 magin: 0 auto
 position absolute, then left 50%, transition translatex
-
 (补充flex几种概念)
+
+# vertical align
 
 # containing block
 concept: padding box, content box
 for calculate dom element postion and size when we use percentage
-  position absolute element, the parent node use padding box
-
-  position static relative element's containing block, its parent node is content box
+  position absolute element, the parent node(containing block) use padding box
+  position static relative element's containing block, its parent node(containing block) is content box
 
 # bfc and margin collapse
-
-vertical direction, adjacent element margin will be collapsed
-
-
-# vertical align
+vertical direction, adjacent(/əˈdʒeɪsnt/) element margin will be collapsed
 
 # requestAnimationFrame and setTimeout setInterval
 requestAnimationFrame (补充定义)
+https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#animation-frames
+execute the callback in the next repaint, can do animation in high precision
+
 setTimeout setInterval (补充定义)
+https://html.spec.whatwg.org/multipage/webappapis.html#webappapis
+https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html
+in whatwg, it defines realm, realm is a global environment in which Javascript can run. Each realm comes with  an global object. Settimeout is defined in the host environment. It is related to macro task.
 
 # 判断if([] == false) {} , if({} == false) {} , if([]) {}
 
@@ -85,3 +87,48 @@ call bind apply
 # closure
 A closure is the combination of a function and the lexical environment within which that function was declared
 
+# cross origin
+1. cookie ls access limit
+2. process DOM
+3. ajax
+only need to know theory: 
+1. add origin to request header
+2. simple request, preflight request (options)
+content-type: application/json need to be preflight
+3. send credential when ajax
+xhr.withCredentials = true
+// response header
+Access-Control-Allow-Credentials: true
+
+
+# https
+# cache cdn
+# http 1.1 2.0, method, code
+# cookie session token JWT oauth
+# user experience
+# performance
+# payment
+# k18n deploy
+
+# interview
+https://www.youtube.com/watch?v=S6lwJ6Rixnc
+react life cycle
+How would you go back and change a project if you had a second chance?
+
+https://www.youtube.com/watch?v=AUN84NApNjo
+1. perimeter
+2. myReduce
+3. myPromise
+4. f(1)(2)(3)
+    f(2)(2)(1)
+    f(2,2,1)
+    f()
+
+https://www.youtube.com/watch?v=OOC-ypVnHAY
+
+Coding Interview | Software Engineer @ Bloomberg (Part 1)
+https://www.youtube.com/watch?v=jma9hFQSCDk
+
+
+question klook:
+1. 薪水 公积金 年终奖 年假 电脑 户口 

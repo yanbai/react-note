@@ -23,7 +23,7 @@ Deeply merging:合并主题对象，如果一个键出现在多个对象中，�
 
 假设您有一个按钮组件，希望将其设置为可主题。您应该传递一个惟一的名称标识符，用于在出现主题时从context检索其主题。
 
-```bash
+```js
 // Button.js
 import React, { Component } from 'react';
 import { themr } from 'react-css-themr';
@@ -43,7 +43,7 @@ class Button extends Component {
 
 export default Button;
 
-The component is defining an API for theming that consists of three classnames: button, icon and content. Now, a component can use a button with a success theme like:
+// The component is defining an API for theming that consists of three classnames: button, icon and content. Now, a component can use a button with a success theme like:
 
 import Button from './Button';
 import successTheme from './SuccessButton.css';
@@ -55,9 +55,9 @@ export default (props) => (
   </div>
 );
 ```
-```bash
-Default theming
-如果使用带有基本主题的组件，则可能需要导入带有已注入主题的组件。然后你可以通过props和另一个主题对象来组成它的风格。在这种情况下，基础css将始终绑定:
+```js
+// Default theming
+// 如果使用带有基本主题的组件，则可能需要导入带有已注入主题的组件。然后你可以通过props和另一个主题对象来组成它的风格。在这种情况下，基础css将始终绑定:
 
 // SuccessButton.js
 import React, { Component } from 'react';
@@ -78,7 +78,7 @@ class Button extends Component {
 }
 
 export default Button;
-Imagine you want to make the success button uppercase for a specific case. You can include the classname mixed with other classnames:
+// Imagine you want to make the success button uppercase for a specific case. You can include the classname mixed with other classnames:
 
 import React from 'react';
 import SuccessButton from 'SuccessButon';
@@ -89,15 +89,15 @@ export default () => (
     <SuccessButton theme={style.button}>Yai!</SuccessButton>
   </section>
 );
-And being Section.css something like:
+// And being Section.css something like:
 
-.section { border: 1px solid red; }
-.button  { text-transform: uppercase; }
-The final classnames object for the Button component would include class values from SuccessButton.css and Section.css so it would be uppercase!
+// .section { border: 1px solid red; }
+// .button  { text-transform: uppercase; }
+// The final classnames object for the Button component would include class values from SuccessButton.css and Section.css so it would be uppercase!
 ```
-```bash
-Context theming
-Although context theming is not limited to ui-kits, it is very useful to avoid declaring hoc for every component. For example, in react-toolbox, you can define a context theme like:
+```js
+// Context theming
+// Although context theming is not limited to ui-kits, it is very useful to avoid declaring hoc for every component. For example, in react-toolbox, you can define a context theme like:
 
 import React from 'react';
 import { render } from 'react-dom';
@@ -116,11 +116,11 @@ const content = (
 );
 
 render(content, document.getElementById('app'));
-The main idea is to inject classnames objects for each component via context. This way you can have the whole theme in a single place and forget about including styles in every require. Any component Button or Dialog from will use the provided styles in the context.
+// The main idea is to inject classnames objects for each component via context. This way you can have the whole theme in a single place and forget about including styles in every require. Any component Button or Dialog from will use the provided styles in the context.
 ```
 
 # API
-```bash
+```md
 <ThemeProvider theme>
 Makes available a theme context to use in styled components. The shape of the theme object consists of an object whose keys are identifiers for styled components provided with the themr function with each theme as the corresponding value. Useful for ui-kits.
 

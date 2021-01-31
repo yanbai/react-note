@@ -1,6 +1,6 @@
 # bind this
 ## options 1 在 constructor 中绑定方法。
-```bash
+```js
 class SayHello extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,7 @@ https://babeljs.io/docs/en/babel-plugin-transform-class-properties/
 那么可以尝试使用目前还处于试验性阶段的 Babel 插件 Class Properties。
 babel-plugin-transform-class-properties
 语法随时可能改变 不建议用
-```bash
+```js
 class SayHello extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +54,7 @@ class SayHello extends React.Component {
 }
 ```
 ## 箭头函数
-```bash
+```js
 render() {
   return (
     <button onClick={(e) => this.handleClick(e)}>
@@ -69,7 +69,7 @@ not recommend creating component inheritance hierarchies
 only use composition(slot): components may accept arbitrary props, including primitive values, React elements, or functions
 
 ## container type: dialog / sidebar
-```bash
+```js
 function SplitPane(props) {
   return (
     <div className="SplitPane">
@@ -98,7 +98,7 @@ function App() {
 ## special cases: WelcomeDialog from Dialog, SignUpDialog from Dialog
 In React, this is also achieved by composition, where a more “specific” component renders a more “generic” one and configures it with props:
 
-```bash
+```js
 function Dialog(props) {
   return (
     <FancyBorder color="blue">
@@ -122,7 +122,7 @@ function WelcomeDialog() {
 }
 ```
 
-```bash
+```js
 function Dialog(props) {
   return (
     <FancyBorder color="blue">
@@ -174,7 +174,7 @@ without extending it.
 
 # classnames
 
-```bash
+```js
 
 const classes = classnames({
   'class-name-1': state_1,
@@ -186,7 +186,7 @@ const classes = classnames({
 ```
 
 # ...others
-```bash
+```js
 const {
   label,
   id,
@@ -198,7 +198,7 @@ const {
 <div { ...others }>
 ```
 
-```bash
+```js
 // className can be replaced by "classnames" npm package
 let Button = props => {
   const {type, ...other} = props
@@ -208,7 +208,7 @@ let Button = props => {
 ```
 
 # merge config
-```bash
+```js
 const path = require('path');
 
 const custom = require('../webpack.config.js');
@@ -222,7 +222,7 @@ module.exports = {
 
 # config Array item
 
-```bash
+```js
 let arr = [
   state_1 && { ...options_1 },
   state_2 && { ...options_2 },

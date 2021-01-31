@@ -1,4 +1,7 @@
 1. 基础
+# 1e-323
+最小的科学技术法就是这个数，后面就是0，参考ie754
+
 # 利用html css 编写样式，div垂直body居中、div内的text垂直居中，div高度等于body宽度的一半
 justify-content: main-axis 上剩余空间的分配(可用来水平居中)
 align-content: cross-axis 上剩余空间的分配
@@ -161,7 +164,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 A closure is the combination of a function and the lexical environment within which that function was declared
 
 
-# 页面加载问题，JS的异步加载
 # H5的新特性，语义化
 # ecma 新特性
 # BOM与DOM，及BOM相关的一些属性
@@ -170,14 +172,16 @@ A closure is the combination of a function and the lexical environment within wh
 
 
 
-2. 特性
+2. 新特性
 # 函数式编程
 # fetch
 https://www.jianshu.com/p/b8030145a29e
 # Web Workers API
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
 
+# node child_process 模块 父子进程通信机制
 
+# web worker，web storage，怎样验证本地数据的有效性
 
 3.
 # api example
@@ -289,123 +293,73 @@ https://leetcode-cn.com/problems/permutations/
 47. 全排列 II
 https://leetcode-cn.com/problems/permutations-ii/
 
+239
+offer 48
+minimum window substring
+construct binary tree from preorder and post
 
-5.
-# React16的新特性、生命周期
-# React组件之间如何通信
-# +React setState 异步更新
-theory:
-if batch flag is true, put component in dirtyComponents, no update immediatelly
-if batch flag is false, update immediatelly
+AVL 红黑树
 
-https://juejin.im/post/6844903715921477640
-https://juejin.im/post/6844903942539706375
-
-class SomeComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      count: 0
-    }
-  }
-
-  handleClick = async() => {
-    this.increaseCount();
-    this.increaseCount();
-    await fetch();
-    this.increaseCount();
-    this.increaseCount();
-    setTimeout(() => {
-      console.log('count:', this.state.count);
-    });
-  }
-
-  increaseCount = () => {
-    const { count } = this.state;
-    this.setState({
-      count: count + 1
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <span>{this.state.count}</span>
-        <button onClick={this.handleClick}>Click</button>
-      </div>
-    )
-  }
-}
-# react如何进行性能优化
-# react fiber 了解多少
-# React DomDiff算法
-https://zhuanlan.zhihu.com/p/20346379
-# Element abcd 变为badc过程
-https://zhuanlan.zhihu.com/p/20346379
-# +React与Vue，各自做了些什么事情
-toy-react
-A jsx
-1. parse jsx via createElement, 生成vdom
-如何解析jsx，createElement具体做了什么
-解析class，html tag， text， style， attribute， children 生成dom树
-2. 生成vdom 给 reactDom.render(vdom, element)
-(3. vdom里面有什么？mountTo render)
-
-B 生命周期
-1. mountTo(range) {
-  this.range = range
-  this.update()
-}
-update() {
-  range = document.getRange()
-  range.setStart()
-  range.setEnd()
-  range.insertNode()
-
-  this.range.deleteContents()
-  let vdom = this.render()
-  vdom.mountTo(this.range)
-}
-note: range里面存的实dom，虚实dom比对靠这个
-C 虚拟DOM
-1. root改成vdom
-2. mountTo的时候 做一个对比 看实dom和vdom是不是一致
-note: mountTo和render
-
-D diff算法
-render的时候 会创建vdom，然后和之前的vdom做diff比对
-不同类型root dom 销毁
-同一类型root dom 仅仅更新attribute
-children dom 更新,
-  如果尾部新增，之前的children不用重新创建
-  如果头部新增，所有children都重新创建
-  就是只会child一一对比
-keys提升diff性能
-组件更新 递归执行render 不代表会卸载组件 有规则来决定差异
-
-
-
-# browser process, vue process, react process
-浏览器解析一个html大致分为五步：创建DOM tree –> 创建Style Rules -> 构建Render tree -> 布局Layout –> 绘制Painting
-
-# router
-https://mp.weixin.qq.com/s/h6rKfXINQKB0499ZK5beTQ
 
 6.
+# 页面加载问题，JS的异步加载
+
+网络基础：
 # restful: is a API standard, uses HTTP to access and use data, method type could be get post put delete to handle recource.
-# 怎样做的登录，接着就是session，cookie，token等等
-http无状态 cookie帮忙储存会话状态，用户登陆后服务器会set cookie，浏览器端有了登录cookie，后续访问服务器端校验cookie
-session是把会话信息存在服务端，客户端会有一个sessionID，服务端收到sessionID，来判断用户是否有效
+# 怎样做的登录，接着就是session，cookie，token等等, # cookie和session的联系
+1. http无状态 cookie帮忙储存会话状态，用户登陆后服务器会set cookie，浏览器端有了登录cookie，后续访问服务器端校验cookie
 
+2. session is a kind of approach to make request tobe stateful, 是把会话信息存在服务端，客户端会有一个sessionID，服务端收到sessionID，来判断用户是否有效
 
-# cookie和session的联系
+3. token: for example, third party want to access user account, but you definitely don't want give third party your account and password, so you can use token instead, token can see as aternative of account/password with expire time
+
+4. oauth,JWT,openID都是一种token机制
+
+5. difference between token and session-based token
+token is a standard can have limited permission and expire time, token usually in header not cookie, can not only used in browser
+session-based token is implemented in server
+
+# localstorage sessionstorage cookie 大小 （一定要记得）
+cookie 4k killobyte: send with request, often used to keep session.
+ls 10m megabyte
+ss 5m (only available in same tab)
+
+# oauth
+https://www.ruanyifeng.com/blog/2019/04/github-oauth.html
+## 流程
+```js
+A 网站让用户跳转到 GitHub。
+GitHub 要求用户登录，然后询问"A 网站要求获得 xx 权限，你是否同意？"
+用户同意，GitHub 就会重定向回 A 网站，同时发回一个授权码。
+A 网站使用授权码，向 GitHub 请求令牌。
+GitHub 返回令牌.
+A 网站使用令牌，向 GitHub 请求用户数据。
+```
+# JWT
+JWT是在客户端存加密过的token：头部 负载 签名(Bearer <token>)
+服务端收到客户端发出的token 会解密看下token是否有效
+JWT keep session data in client
+session keep session data in server
+
 # Process和Thread是什么
 +1 +1
-1. 进程：程序的一次执行
+1. 进程：程序的一次执行,进程是一个容器,进程与进程之间有独立的内存空间，一个进程里面可以有多个线程
+chrome的主进程（调度）
+chrome的每个tab都是一个进程，这个进程叫做渲染进程（渲染页面，执行js）
 2. 线程：CPU的基本调度单位
+浏览器渲染进程包括：GUI线程，js引擎线程，事件触发线程
 # http 1.1/2.0
+IETF发布
 如何优雅的谈论HTTP／1.0／1.1／2.0
 https://www.jianshu.com/p/52d86558ca57
+1.0 每个请求一个TCP连接 而且是串行请求
+1.1 通过设置keepalive实现http长连接
+    请求发出，不必等返回，就可以发第二个请求
+2.0 二进制协议
+    在一个TCP中并发请求多个HTTP请求
+    压缩头
+    允许服务端在客户端放cache，服务端push
+tcp: 传输层
 # +http的常见method
 get 获取
 post 传输
@@ -421,44 +375,65 @@ CONNECT www.example.com:443 HTTP/1.1
 trace
 # +http status code
 200 301 302 304 401 404 5xx
-# +https握手机制
-+1 这个一定要烂熟
-http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html
-https://github.com/CyC2018/CS-Notes/blob/master/notes/HTTP.md#%E5%85%ADhttps
-https全称是通过ssl的传输协议, 解决http problem: 窃听 篡改 伪装
-ssl协议包括 SSL记录协议和 ssl握手协议，握手协议在实际数据传输前，通信双方进行认证 交换密钥等
 
-数字签名解决 伪装 篡改
-https采用对称 非对称加密混合的方式
-asymmetric encryption to encrypt the session key, then use session key to encripy and Decrypt the message
-/ˌeɪsɪˈmetrɪk/
-
-1.clientHello: 支持的协议版本和加密算法比如RSA, random number
-2.serverRes: 确认协议版本和加密方法，random number，服务器证书(里面有公钥)
-3.client 验证整数里面的数字签名， 取出公钥,  then clientHello: random number, 编码改变通知, client ending
-4.serverRes: 通过三个随机数生成session key, 编码改变通知, server ending
-接下来都是用session key来加密通信了
-
+# 状态码 206 307
+206 partial content
+307 针对get的重定向
+303 可以跟随重定向get 和 post /todo
 # Tcp协议怎么保证是可靠的
 # 三次握手、四次挥手及标志位、time-wait
 # TCP 握手，分手，拥塞控制，流量控制
 +1
+
+cache + cdn：
+# 缓存相关的http头部属性，强制缓存，协商缓存，优先级，以及meta标签
+<meta http-equiv="Cache-control" content="no-cache">
+
+https://mp.weixin.qq.com/s/d2zeGhUptGUGJpB5xHQbOA?
+# 浏览器缓存类型 
+客户端请求资源，会先去像本地缓存查看是否有此资源，如果没有，则向服务端请求，server返回header有cache-control,和Etag,则告诉客户端这个资源要不要cache，以及要cache多久，
+第二次请求相同资源，如果在时间范围内，会走强制缓存，如果超时无效，会走协商缓存
+
+强制缓存 disk cache / memory cache
+  Cache-Control(response header): max-age=xxx(second)/no-cache, no-cache means we have cache in client, but need 协商缓存 
+  Expires(response header)
+协商缓存 304
+  Last-Modified(response header): this resource last modified time
+  if-modified-since(request header): this is Last-modified last time
+  Etag(response header)
+  if-none-match(request header)
+
+1) Last-Modified属性通常和Expires或Cache-Control属性配合使用, 因为即使浏览器设置缓存, 当用户点击”刷新”按钮时, 浏览器会忽略缓存继续向服务器发送请求, 这时Last-Modified将能够很好的减小回应开销.
+2) ETag将返回给浏览器一个资源ID, 如果有了新版本则正常发送并附上新ID, 否则返回304， 但是在服务器集群情况下, 每个服务器将返回不同的ID, 因此不建议使用ETag.
+3) vary是request header中使用的，为了在cache层验证请求头是否能使用缓存
+Vary: Accept-Encoding 保证每个版本的资源在不同的压缩编码格式下都会缓存不同副本
+Vary: User-Agent 保证不同针对不同设备缓存不同版本资源
+4) Pragma is an HTTP/1.0 header. Pragma: no-cache is like Cache-Control: no-cache
 # 浏览器缓存策略
 +1（只答出了 LRU）
-# 缓存相关的http头部属性，强制缓存，协商缓存，优先级，以及meta标签
-cache-control: max-age(unit is second)
-if-modify-since
-# 缓存命中率的问题，怎样确保缓存全部数据，缓存命中率不是100%应该怎么办
+
 # CDN原理
+CDN是一种缓存策略，类似朴朴前置仓，把仓库放到要买菜的小区附近。
+本地访问域名，由dns服务器指向CDN服务器（cloudflare， cloudfront）中的均衡负载系统,均衡负载系统解析域名后，把最近的节点返回给用户
+dns包括DNS 调度服务器和一个节点服务器
+
+CDN有加速 防止ddos攻击的作用
+
+把 max-age 用于本地缓存，把 s-maxage 用于 CDN 缓存时间, s是share
 # CDN获取最近节点资源的算法是什么
 
-# web worker，web storage，怎样验证本地数据的有效性
+# 缓存命中率的问题，怎样确保缓存全部数据，缓存命中率不是100%应该怎么办
+对于一个缓存而言，还有一点很重要，就是你的缓存到底有没有用，衡量这个东西的就是缓存命中率。如果只是静态资源，在刷新缓存之后，可能会导致命中率下降，因此 CDN 的资源不适合经常刷新，换句话说，如果一个请求结果会经常进行变更，那么 CDN 基本就没什么存在的意义。
+X-Cache
+
 # 请求优化和渲染优化的方法
+# web worker，web storage，怎样验证本地数据的有效性
 # DHCP 的实现基于啥协议（UDP）
-# node child_process 模块 父子进程通信机制
+
+
+跨域:
 # 跨域相关的问题
 # 介绍CSRF。CSRF会不会有跨域的问题（不会，这里涉及到跨域的一些原理，跨域请求会被后端接口执行，但是返回的时候会被浏览器拦截）
-# 安全问题
 
 # 跨域
 【第2027期】图解CORS
@@ -489,20 +464,32 @@ response header:
 6. CORS与JSONP的使用目的相同，但是比JSONP更强大。
 JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。
 
-# oauth
-https://www.ruanyifeng.com/blog/2019/04/github-oauth.html
-## 流程
-```js
-A 网站让用户跳转到 GitHub。
-GitHub 要求用户登录，然后询问"A 网站要求获得 xx 权限，你是否同意？"
-用户同意，GitHub 就会重定向回 A 网站，同时发回一个授权码。
-A 网站使用授权码，向 GitHub 请求令牌。
-GitHub 返回令牌.
-A 网站使用令牌，向 GitHub 请求用户数据。
-```
-# JWT
-JWT是在客户端存加密过的token：头部 负载 签名
-服务端收到客户端发出的token 会解密看下token是否有效
+
+安全以及授权：
+# +https握手机制
++1 这个一定要烂熟
+综述：
+https://www.jianshu.com/p/52d86558ca57
+
+http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html
+https://github.com/CyC2018/CS-Notes/blob/master/notes/HTTP.md#%E5%85%ADhttps
+https全称是通过ssl的传输协议, 解决http problem: 窃听 篡改 伪装
+ssl协议包括 SSL记录协议和 ssl握手协议，握手协议在实际数据传输前，通信双方进行认证 交换密钥等
+
+数字签名解决 伪装 篡改
+https采用对称 非对称加密混合的方式
+asymmetric encryption to encrypt the session key, then use session key to encripy and Decrypt the message
+/ˌeɪsɪˈmetrɪk/
+用非对称加密来加密session key， 用对称加密来加密报文
+
+
+1.clientHello: 支持的协议版本和加密算法比如RSA, random number
+2.serverRes: 确认协议版本和加密方法，random number，服务器证书(里面有公钥)
+3.client 验证整数里面的数字签名， 取出公钥,  then clientHello: random number, 编码改变通知, client ending
+4.serverRes: 通过三个随机数生成session key, 编码改变通知, server ending
+接下来都是用session key来加密通信了
+
+
 
 # 埋点
 https://zhuanlan.zhihu.com/p/66883233
@@ -510,57 +497,75 @@ https://zhuanlan.zhihu.com/p/66883233
 
 # PWA VS RN VS weex
 PWA，全称为Progressive Web App，是谷歌公司在2015年提出的渐进式网页开发技术
-PWA使用了Service Worker
+PWA使用了 Service Worker
 可通过网络应用程序Manifest为用户提供媲美原生App的使用体验
 Service Worker表示离线缓存文件，其本质是Web应用程序与浏览器之间的代理服务器，网络可用作为浏览器和网络之间的代理，离线环境下使用其中的缓存内容
 Manifest则是W3C的技术规范，它定义了基于JSON的清单，为开发人员提供了一个集中放置与Web应用程序关联的元数据的地点
 
-
-# 状态码 206 307
-
-# 缓存的请求头
-cache-control
-last-modified
-
 # ssr vs spa
+何时ssr 何时csr？ /todo
+
+# 安全问题
+DDoS全称:分布式拒绝服务
+它利用网络协议和操作系统的一些缺陷，采用欺骗和伪装的策略来进行网络攻击，使网站服务器充斥大量要求回复的信息，消耗网络带宽或系统资源，导致网络或系统不胜负荷以至于瘫痪而停止提供正常的网络服务。
+DDoS简单说就是分布式的方法，不断去请求，如果程序对用户授权没有做好的话。消耗网络带宽或系统资源。
+DDoS可以用硬件防火墙来过滤攻击
+
+CC攻击的原理是通过代理服务器或者大量肉鸡模拟多个用户访问目标网站的动态页面，制造大量的后台数据库查询动作，消耗目标CPU资源，造成拒绝服务
+提供验证码
+
+区别：
+DDoS攻击打的是网站的服务器，而CC攻击是针对服务器上的网站攻击的
+
+# md5
+Md5是啥，是加密还是签名
+
+
 
 
 7.
 # 介绍下项目前端架构、项目难点
 +1
+主题化
+按需加载
 # 你以前做过性能优化方面的开发，介绍下
 +1
+组件库 样式优化
+组件库 按需加载
+webpack cache优化 /todo
+https://mp.weixin.qq.com/s/oB5eYax_NndcM5IinPgzNQ
+
 # 说说性能优化的通用架构方案
-css: contain will-change
-
-# 项目中修复的bug
-
+nuxt cache 服务端cache
+lru-cache
 
 # 介绍下项目提高点
-1. 主题化优化(不要把所有主题样式都打包出来)
+1. 主题化优化(不要把所有主题样式都打包出来) /todo
 
 2. 如果没有babel插件 怎么按需加载
 
-3. md文档怎么不用手写
+3. md文档怎么不用手写 /todo
 https://medium.com/storybookjs/rich-docs-with-storybook-mdx-61bc145ae7bc
 https://reaviz.io/?path=/docs/docs-chart-types-area-chart--page
 mdx
 4. 提取公共css
 splitChunks + enforce true
-
-# code split react webpack?
+## 公共css
+use optimization.splitChunks or mannually make package
 
 
 # webpack 了解 应用，常用loader plugin
 0.
 HtmlWebpackPlugin
-clean-webpack-plugin
+clean-webpack-plugin /todo
 mini-css-extract-plugin
-TerserPlugin
-optimize-css-assets-webpack-plugin
+TerserPlugin /todo
+optimize-css-assets-webpack-plugin /todo
 DefinePlugin
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   DefinePlugin 允许在 编译时 创建配置的全局常量
+CommonsChunkPlugin /todo
+
 
 1. optimization
   runtimeChunk: single true
@@ -612,6 +617,10 @@ ExtractTextPlugin
 AggressiveSplittingPlugin
 AggressiveMergingPlugin
 ModuleConcatenationPlugin
+## webpack cache
+webpack v5 cache
+https://mp.weixin.qq.com/s/oB5eYax_NndcM5IinPgzNQ
+
 
 # webpack 原理
 webpack 是一个nodejs程序吗?
@@ -634,34 +643,38 @@ optimization.splitChunks
 With the optimization.splitChunks configuration option in place, we should now see the duplicate dependency removed from our index.bundle.js and another.bundle.js.
 Originally, chunks (and modules imported inside them) were connected by a parent-child relationship in the internal webpack graph. The CommonsChunkPlugin was used to avoid duplicated dependencies across them
 
-mini-css-extract-plugin
-
-webpack中使用DefinePlugin定义全局变量
-'process.env': config.dev.ENV
 
 ## webpack v5 vs v4
-## webpack cache
-## 公共css
-use optimization.splitChunks or mannually make package
-
+这个还不知道
 
 # ssr原理 怎么把vue 转成 HTML
+vue-server-renderer
 
-# bug 说一说
-## think a vue theory bug
 
 # babel: commonjs 转 es6
 
 
 
+项目经验 和 项目bug其实都是在于考察面试者平常的工作经验，项目bug可以很好的考察平常这个面试者到底是在处理什么级别的任务，擦什么样的屁股，以及擦屁股擦得干不干净
+建议从 编程能力 架构 以及 工程化3个方面考虑
+# 项目中修复的bug /todo
 
-# react theory
+架构：gobear反向代理的bug
+
+编程：bfcache的问题
+
+ga：gobear ga bug
+
+网络：缓存和缓存bug
+
+
+## think a vue theory bug /todo
+
+
+
+8. 很可能被问到的其他问题
 # uniapp theory
 # electron theory
-# 缓存 CDN 说一说
-
-
-
 
 # 多个pubsub 崩塌问题
 
@@ -671,7 +684,7 @@ use optimization.splitChunks or mannually make package
 # RN
 ## write a checkbox group component
 
-# 正则匹配 version-(subversion).1.2.3
+# 正则匹配 version-(subversion).1.2.3 /todo
 'version-alpha.1'.match(/^([^-]+)(?:-(\S+))?\.(\d)/)
 // ["version-alpha.1", "version", "alpha", "1", index: 0, input: "version-alpha.1", groups: undefined]
 'version.1'.match(/^([^-]+)(?:-(\S+))?\.(\d)/)
@@ -705,3 +718,12 @@ https://jobs.lever.co/ninjavan/0081914d-9b18-46f1-aa34-e88bf23981aa
 
 # node
 https://www.pirple.com/courses/take/the-nodejs-master-class/lessons/3809327-what-is-v8-exactly
+
+
+
+# 英语时间复杂度
+# const let 对于性能的影响 闭包
+# flex
+# 声网
+# 前端解析
+# promise es6
