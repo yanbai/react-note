@@ -1,0 +1,21 @@
+电脑
+密钥
+github账号
+
+
+ssh -T git@github.com
+ssh-keygen -t rsa -C "email"
+
+
+https://www.jianshu.com/p/12badb7e6c10
+如果同个电脑的同个密钥只能对应一个github账户
+但是一个github账户可以有多个密钥
+
+场景：
+A电脑和B电脑上的密钥对应同个github账户，两台都可以
+
+
+A电脑的密钥a已经绑定了一个github账户，那么就不能绑定另外一个
+
+小陈有两个github账户，一台电脑，如果只有一个密钥，那就不能同时用两个账户访问git仓库
+得有两个密钥
